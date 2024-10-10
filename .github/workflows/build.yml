@@ -32,14 +32,7 @@ jobs:
           flutter-version: '3.24.1'
           channel: 'stable'
 
-      - name: Set up deploy key for Cloud repo
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-
       - name: Build Android app
         run: |
+          cd example
           flutter build apk
-          flutter build appbundle
