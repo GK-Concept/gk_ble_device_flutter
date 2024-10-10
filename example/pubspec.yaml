@@ -1,0 +1,25 @@
+name: example
+description: "Example for GK Concept Dropper BLE client"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  gk_ble_device_flutter:
+    path: ../
+  cupertino_icons: ^1.0.8
+  flutter_bloc: ^8.1.6
+  flutter_blue_plus: ^1.32.0
+  logging: ^1.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
