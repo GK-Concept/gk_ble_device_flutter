@@ -6,28 +6,34 @@ This library enables the user to connect to a GK Concept device via Bluetooth Lo
 Energy (BLE), to discover devices in the proximity and to subscribe to the device's
 report stream, notifying the application of the device's activity.
 
-Currently, this library only supports Dropper devices with firmware 0.8.0 and later.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Currently, this library only supports [Dropper](https://www.gkconcept.co/dropper/)
+devices with firmware 0.8.0 and later.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+When using this library, please make sure to follow the
+[FlutterBluePlus guide](https://pub.dev/packages/flutter_blue_plus#getting-started),
+in particular concerning the required permissions for your app.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+All the core functionality is implemented in
+[`BleDeviceCubit`](https://pub.dev/documentation/gk_ble_device_flutter/latest/gk_ble_device_flutter/BleDeviceCubit-class.html).
 
-```dart
-const like = 'sample';
+## Permissions for macOS
+
+For macOS, put the following in your `Info.plist`:
+
+```
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>The app uses bluetooth to find, connect and transfer data between different devices</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>The app uses bluetooth to find, connect and transfer data between different devices</string>
 ```
 
-## Additional information
+Also, add this to `DebugProfile.entitlements` and `Release.entitlements`:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```
+	<key>com.apple.security.device.bluetooth</key>
+	<true/>
+```
