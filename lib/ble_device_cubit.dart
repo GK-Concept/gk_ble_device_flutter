@@ -208,8 +208,6 @@ class BleDeviceCubit extends Cubit<BleDeviceState> {
       } else {
         logger.info("connected to device ${device.platformName}");
       }
-      // TODO: let the firmware take care of this and check on all
-      //       platforms
       if (Platform.isAndroid) {
         await device.requestConnectionPriority(
             connectionPriorityRequest: ConnectionPriority.high);

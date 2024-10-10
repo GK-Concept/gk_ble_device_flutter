@@ -31,15 +31,12 @@ class DropperDemoApp extends StatefulWidget {
 
 final Map<Type, Function(BleDeviceState state)> _stateMessages = {
   BleDeviceAuthorizing: (state) => 'Authorizing Bluetooth...',
-  BleDeviceScanning: (state) => 'Scanning for devices...',
   BleDeviceConnecting: (state) =>
       'Connecting to ${(state as BleDeviceConnecting).device.platformName}...',
   BleDeviceGettingServices: (state) =>
       'Retrieving services from ${(state as BleDeviceGettingServices).device.platformName}...',
   BleDeviceGettingCharacteristics: (state) =>
       'Retrieving characteristics from ${(state as BleDeviceGettingCharacteristics).device.platformName}...',
-  BleDeviceConnected: (state) =>
-      'Connected to ${(state as BleDeviceConnected).device.platformName}',
   BleDeviceDisconnected: (state) =>
       'Disconnected from ${(state as BleDeviceDisconnected).device.platformName}',
   BleDeviceFailedToConnect: (state) =>
@@ -48,11 +45,9 @@ final Map<Type, Function(BleDeviceState state)> _stateMessages = {
 
 final Map<Type, Function(BleDeviceState state)> _stateSymbols = {
   BleDeviceAuthorizing: (state) => const CircularProgressIndicator(),
-  BleDeviceScanning: (state) => const CircularProgressIndicator(),
   BleDeviceConnecting: (state) => const CircularProgressIndicator(),
   BleDeviceGettingServices: (state) => const CircularProgressIndicator(),
   BleDeviceGettingCharacteristics: (state) => const CircularProgressIndicator(),
-  BleDeviceConnected: (state) => const Icon(Icons.check),
   BleDeviceDisconnected: (state) => const Icon(Icons.error),
   BleDeviceFailedToConnect: (state) => const Icon(Icons.error),
 };
@@ -115,8 +110,14 @@ class _DropperDemoAppState extends State<DropperDemoApp> {
   Widget _connectedScreen(BuildContext context, BleDeviceConnected state) {
     return Center(
         child: Column(children: [
+      const SizedBox(height: 20),
       const Icon(Icons.check),
+      const SizedBox(height: 20),
       Text('Connected to ${state.device.platformName}'),
+      const SizedBox(height: 20),
+      if (state.characteristics.containsKey(GKCharId.firmwareVersion))
+        ...[Text('Firmware version: ${state.characteristics[GKCharId.firmwareVersion]!.stringValue}'),
+        const SizedBox(height: 20)],
       ElevatedButton(
           onPressed: () async {
             final cubit = context.read<BleDeviceCubit>();
@@ -128,8 +129,6 @@ class _DropperDemoAppState extends State<DropperDemoApp> {
   }
 
   Widget _buildScreen(BuildContext context, BleDeviceState state) {
-    // TODO: add screen video to documentation
-    // TODO: show firmware version in UI
     if (state is BleDeviceScanning) {
       return _scanScreen(context, state);
     }
@@ -167,7 +166,6 @@ class _DropperDemoAppState extends State<DropperDemoApp> {
             _devices = state.discoveredDevices;
           });
         }
-        // TODO: show info when report char not found
         if (state is BleDeviceConnected &&
             state.characteristicStreams.containsKey(GKCharId.report)) {
           if (_reportSubscription != null) {
