@@ -1,0 +1,29 @@
+name: Linting
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  check-linting:
+    name: Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.1'
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: |
+          flutter pub get
+
+      - name: Lint
+        run: dart analyze --fatal-infos .

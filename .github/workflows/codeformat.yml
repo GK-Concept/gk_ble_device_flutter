@@ -1,0 +1,22 @@
+name: Code format
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  check-code-format:
+    name: Check code format
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v3
+
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Check code format
+        run: dart format -o none --set-exit-if-changed .
