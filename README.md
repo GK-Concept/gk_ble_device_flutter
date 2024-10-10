@@ -1,18 +1,12 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+[![Build](https://github.com/GK-Concept/gk_ble_device_flutter/actions/workflows/build.yml/badge.svg)](https://github.com/GK-Concept/gk_ble_device_flutter/actions/workflows/build.yml)
+[![Code format](https://github.com/GK-Concept/gk_ble_device_flutter/actions/workflows/codeformat.yml/badge.svg)](https://github.com/GK-Concept/gk_ble_device_flutter/actions/workflows/codeformat.yml)
+[![Linting](https://github.com/GK-Concept/gk_ble_device_flutter/actions/workflows/linting.yml/badge.svg)](https://github.com/GK-Concept/gk_ble_device_flutter/actions/workflows/linting.yml)
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+This library enables the user to connect to a GK Concept device via Bluetooth Low
+Energy (BLE), to discover devices in the proximity and to subscribe to the device's
+report stream, notifying the application of the device's activity.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Currently, this library only supports Dropper devices with firmware 0.8.0 and later.
 
 ## Features
 
