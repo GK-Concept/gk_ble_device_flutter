@@ -96,7 +96,10 @@ class _DropperDemoAppState extends State<DropperDemoApp> {
                 itemBuilder: (context, index) {
                   return ListTile(
                       title: Row(children: [
-                        const Icon(Icons.router),
+                        BluetoothSignal(
+                            strength: context
+                                .read<BleDeviceCubit>()
+                                .getRssi(_devices[index])),
                         const SizedBox(width: 10),
                         Text(_devices[index].platformName)
                       ]),
@@ -115,9 +118,11 @@ class _DropperDemoAppState extends State<DropperDemoApp> {
       const SizedBox(height: 20),
       Text('Connected to ${state.device.platformName}'),
       const SizedBox(height: 20),
-      if (state.characteristics.containsKey(GKCharId.firmwareVersion))
-        ...[Text('Firmware version: ${state.characteristics[GKCharId.firmwareVersion]!.stringValue}'),
-        const SizedBox(height: 20)],
+      if (state.characteristics.containsKey(GKCharId.firmwareVersion)) ...[
+        Text(
+            'Firmware version: ${state.characteristics[GKCharId.firmwareVersion]!.stringValue}'),
+        const SizedBox(height: 20)
+      ],
       ElevatedButton(
           onPressed: () async {
             final cubit = context.read<BleDeviceCubit>();

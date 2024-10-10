@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 enum DeviceType { unknown, dropper, paperscent, maestroNano }
@@ -67,4 +68,32 @@ extension CharacteristicHelper on BluetoothCharacteristic {
       knownCharacteristics[uuid] ?? GKCharId.unknown;
   String get name => characteristicId.name;
   String get stringValue => String.fromCharCodes(lastValue);
+}
+
+class BluetoothSignal extends StatelessWidget {
+  const BluetoothSignal({required this.strength, super.key});
+  final int strength;
+
+  IconData bluetoothSignalIcon(int strength) {
+    if (strength > -60) {
+      return Icons.signal_cellular_alt_rounded;
+    } else if (strength > -80) {
+      return Icons.signal_cellular_alt_2_bar_rounded;
+    } else {
+      return Icons.signal_cellular_alt_1_bar_rounded;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: 64,
+        height: 64,
+        child: Align(
+          alignment: Alignment.center,
+          child: Icon(
+            bluetoothSignalIcon(strength),
+            color: Colors.blue,
+          ),
+        ),
+      );
 }
