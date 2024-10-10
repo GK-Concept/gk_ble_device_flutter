@@ -195,6 +195,10 @@ class _DropperDemoAppState extends State<DropperDemoApp> {
             'Firmware version: ${state.characteristics[GKCharId.firmwareVersion]!.stringValue}'),
         const SizedBox(height: 20)
       ],
+      if (!state.characteristicStreams.containsKey(GKCharId.report)) ...[
+        const Text('No report characteristic found. Are you using a Dropper device with firmware 0.8.0 or later?'),
+        const SizedBox(height: 20)
+      ],
       ElevatedButton(
           onPressed: () async {
             final cubit = context.read<BleDeviceCubit>();
