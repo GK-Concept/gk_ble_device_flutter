@@ -67,6 +67,78 @@ class _DropperDemoAppState extends State<DropperDemoApp> {
     super.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<BleDeviceCubit, BleDeviceState>(
+      listener: _listener,
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Dropper Demo"),
+          ),
+          body: _buildScreen(context, state),
+        );
+      },
+    );
+  }
+
+  void _listener(BuildContext context, BleDeviceState state) {
+    final cubit = context.read<BleDeviceCubit>();
+    if (state is BleDeviceAuthorizing &&
+        state.status == BluetoothAdapterState.on) {
+      cubit.startScanning();
+    } else if (state is BleDeviceScanning) {
+      setState(() {
+        _devices = state.discoveredDevices;
+      });
+    } else if (state is BleDeviceDisconnected) {
+      if (_reportSubscription != null) {
+        _reportSubscription!.cancel();
+      }
+      Future.delayed(const Duration(seconds: 1), () {
+        cubit.startScanning();
+      });
+    } else if (state is BleDeviceConnected &&
+        state.characteristicStreams.containsKey(GKCharId.report)) {
+      if (_reportSubscription != null) {
+        _reportSubscription!.cancel();
+      }
+      _reportSubscription = state.characteristicStreams[GKCharId.report]!
+          .listen((List<int> report) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('Report: ${String.fromCharCodes(report)}')));
+        }
+      });
+    }
+  }
+
+  Widget _buildScreen(BuildContext context, BleDeviceState state) {
+    if (state is BleDeviceScanning) {
+      return _scanScreen(context, state);
+    }
+    if (state is BleDeviceConnected) {
+      return _connectedScreen(context, state);
+    }
+
+    return Center(
+      child: Column(
+        children: [
+          const SizedBox(height: 20),
+          if (_stateSymbols.containsKey(state.runtimeType))
+            _stateSymbols[state.runtimeType]!(state)
+          else
+            const SizedBox.shrink(),
+          const SizedBox(height: 20),
+          Text(_stateMessages.containsKey(state.runtimeType)
+              ? _stateMessages[state.runtimeType]!(state)
+              : ''),
+        ],
+      ),
+    );
+  }
+
   Widget _scanScreen(BuildContext context, BleDeviceState state) {
     return Center(
         child: Column(children: [
@@ -131,70 +203,5 @@ class _DropperDemoAppState extends State<DropperDemoApp> {
           },
           child: const Text("Disconnect"))
     ]));
-  }
-
-  Widget _buildScreen(BuildContext context, BleDeviceState state) {
-    if (state is BleDeviceScanning) {
-      return _scanScreen(context, state);
-    }
-    if (state is BleDeviceConnected) {
-      return _connectedScreen(context, state);
-    }
-
-    return Center(
-      child: Column(
-        children: [
-          const SizedBox(height: 20),
-          if (_stateSymbols.containsKey(state.runtimeType))
-            _stateSymbols[state.runtimeType]!(state)
-          else
-            const SizedBox.shrink(),
-          const SizedBox(height: 20),
-          Text(_stateMessages.containsKey(state.runtimeType)
-              ? _stateMessages[state.runtimeType]!(state)
-              : ''),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<BleDeviceCubit, BleDeviceState>(
-      listener: (context, state) {
-        if (state is BleDeviceAuthorizing &&
-            state.status == BluetoothAdapterState.on) {
-          context.read<BleDeviceCubit>().startScanning();
-        }
-        if (state is BleDeviceScanning) {
-          setState(() {
-            _devices = state.discoveredDevices;
-          });
-        }
-        if (state is BleDeviceConnected &&
-            state.characteristicStreams.containsKey(GKCharId.report)) {
-          if (_reportSubscription != null) {
-            _reportSubscription!.cancel();
-          }
-          _reportSubscription = state.characteristicStreams[GKCharId.report]!
-              .listen((List<int> report) {
-            if (!context.mounted) {
-              return;
-            }
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('Report: ${String.fromCharCodes(report)}')));
-          });
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text("Dropper Demo"),
-          ),
-          body: _buildScreen(context, state),
-        );
-      },
-    );
   }
 }
