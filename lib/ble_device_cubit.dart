@@ -250,7 +250,8 @@ class BleDeviceCubit extends Cubit<BleDeviceState> {
       isPaired = await device.bondState.first == BluetoothBondState.bonded;
     } else {
       // NOTE: this is a workaround to check if the device is paired for macOS and iOS
-      final systemDevices = await FlutterBluePlus.systemDevices;
+      final systemDevices =
+          await FlutterBluePlus.systemDevices([gkServiceUuid]);
       isPaired = systemDevices.contains(device);
     }
     logger.info("device is ${isPaired ? "" : "not "}paired");
