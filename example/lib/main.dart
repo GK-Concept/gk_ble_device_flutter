@@ -196,7 +196,8 @@ class _DropperDemoAppState extends State<DropperDemoApp> {
         const SizedBox(height: 20)
       ],
       if (!state.characteristicStreams.containsKey(GKCharId.report)) ...[
-        const Text('No report characteristic found. Are you using a Dropper device with firmware 0.8.0 or later?'),
+        const Text(
+            'No report characteristic found. Are you using a Dropper device with firmware 0.8.0 or later?'),
         const SizedBox(height: 20)
       ],
       ElevatedButton(
