@@ -21,7 +21,7 @@ in particular concerning the required permissions for your app.
 ## Usage
 
 All the core functionality is implemented in
-[`BleDeviceCubit`](https://pub.dev/documentation/gk_ble_device_flutter/latest/gk_ble_device_flutter/BleDeviceCubit-class.html).
+[`BleDeviceCubit`](https://pub.dev/documentation/gk_ble_device_flutter/doc/api/ble_device_cubit/BleDeviceCubit-class.html).
 
 A complete example with user interface can be found
 [here](https://github.com/GK-Concept/gk_ble_device_flutter/blob/main/example/lib/main.dart).
@@ -30,7 +30,7 @@ A complete example with user interface can be found
 
 This is what the example looks like on Android:
 
-![](img/demo.gif)
+![](https://github.com/GK-Concept/gk_ble_device_flutter/raw/main/img/demo.gif)
 
 ## Dropper report message format
 
@@ -73,15 +73,15 @@ doses  | int  | Total number of distributions since last zero.
 For macOS, put the following in your `Info.plist`:
 
 ```
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>The app uses bluetooth to find, connect and transfer data between different devices</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>The app uses bluetooth to find, connect and transfer data between different devices</string>
+<key>NSBluetoothAlwaysUsageDescription</key>
+<string>The app uses bluetooth to find, connect and transfer data between different devices</string>
+<key>NSBluetoothPeripheralUsageDescription</key>
+<string>The app uses bluetooth to find, connect and transfer data between different devices</string>
 ```
 
 Also, add this to `DebugProfile.entitlements` and `Release.entitlements`:
 
 ```
-	<key>com.apple.security.device.bluetooth</key>
-	<true/>
+<key>com.apple.security.device.bluetooth</key>
+<true/>
 ```
