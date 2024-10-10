@@ -21,7 +21,7 @@ in particular concerning the required permissions for your app.
 ## Usage
 
 All the core functionality is implemented in
-[`BleDeviceCubit`](https://pub.dev/documentation/gk_ble_device_flutter/doc/api/ble_device_cubit/BleDeviceCubit-class.html).
+[`BleDeviceCubit`](https://pub.dev/documentation/gk_ble_device_flutter/latest/ble_device_cubit/BleDeviceCubit-class.html).
 
 A complete example with user interface can be found
 [here](https://github.com/GK-Concept/gk_ble_device_flutter/blob/main/example/lib/main.dart).
