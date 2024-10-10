@@ -237,7 +237,11 @@ class BleDeviceCubit extends Cubit<BleDeviceState> {
   /// discovered services. This method also updates the characteristics from the device.
   ///
   Future<void> discoverServices() async {
-    final device = state is BleDeviceConnecting ? (state as BleDeviceConnecting).device : state is BleDeviceConnected ? (state as BleDeviceConnected).device : null;
+    final device = state is BleDeviceConnecting
+        ? (state as BleDeviceConnecting).device
+        : state is BleDeviceConnected
+            ? (state as BleDeviceConnected).device
+            : null;
     if (device == null) {
       return;
     }
@@ -245,8 +249,7 @@ class BleDeviceCubit extends Cubit<BleDeviceState> {
 
     bool isPaired = false;
     if (Platform.isAndroid) {
-      isPaired = await device.bondState.first ==
-          BluetoothBondState.bonded;
+      isPaired = await device.bondState.first == BluetoothBondState.bonded;
     } else {
       // NOTE: this is a workaround to check if the device is paired for macOS and iOS
       final systemDevices = await FlutterBluePlus.systemDevices;
@@ -254,8 +257,8 @@ class BleDeviceCubit extends Cubit<BleDeviceState> {
     }
     logger.info("device is ${isPaired ? "" : "not "}paired");
 
-    final success = await _tryFbpOperation(
-        device, "discovering services", () async {
+    final success =
+        await _tryFbpOperation(device, "discovering services", () async {
       final services = await device.discoverServices();
       emit(BleDeviceGettingCharacteristics(
         device: device,

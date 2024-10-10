@@ -97,20 +97,18 @@ class _DropperDemoAppState extends State<DropperDemoApp> {
       else
         Expanded(
             child: ListView.builder(
-          itemCount: _devices.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Row(children: [
-                const Icon(Icons.router),
-                const SizedBox(width: 10),
-                Text(_devices[index].platformName)
-              ]),
-              onTap: () {
-                context.read<BleDeviceCubit>().connect(_devices[index]);
-              }
-            );
-          }
-        ))
+                itemCount: _devices.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                      title: Row(children: [
+                        const Icon(Icons.router),
+                        const SizedBox(width: 10),
+                        Text(_devices[index].platformName)
+                      ]),
+                      onTap: () {
+                        context.read<BleDeviceCubit>().connect(_devices[index]);
+                      });
+                }))
     ]));
   }
 
