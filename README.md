@@ -26,6 +26,12 @@ All the core functionality is implemented in
 A complete example with user interface can be found
 [here](https://github.com/GK-Concept/gk_ble_device_flutter/blob/main/example/lib/main.dart).
 
+## Demo
+
+This is what the example looks like on Android:
+
+![](img/demo.gif)
+
 ## Dropper report message format
 
 The messages obtained from the report-stream subscription of a Dropper device have
