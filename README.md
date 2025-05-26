@@ -32,6 +32,25 @@ This is what the example looks like on Android:
 
 ![](https://github.com/GK-Concept/gk_ble_device_flutter/raw/main/img/demo.gif)
 
+# Multi device demo
+
+This is what the multi device example (`example/lib/multidev_main.dart`) looks like on iOS:
+
+![](https://github.com/GK-Concept/gk_ble_device_flutter/raw/main/img/multidev_demo.gif)
+
+Here we connect to ten Dropper devices simultaneously. Note that in particular during the
+initial setup, it takes some time to establish the connections, since all calls to service
+and characteristic discovery have to go through the flutter_blue_plus backend.
+
+Initially, the device `GKDR-DMGCXKJX3EDA` was left powered off. Once all other
+devices are connected, we trigger the TOF sensors on `GKDR-DMGCXKJX3ERQ` and `GKDR-DMGCXKJXFCIA`
+to demonstrate how the reports from the devices are displayed as snackbars.
+
+We then power up `GKDR-DMGCXKJX3EDA` to demonstrate the automatic connection to this device.
+
+Finally, we disconnect `GKDR-DMGCXKJXE76A` from power and reconnect it to demonstrate that
+the automatic reconnection works.
+
 ## Dropper report message format
 
 The messages obtained from the report-stream subscription of a Dropper device have
