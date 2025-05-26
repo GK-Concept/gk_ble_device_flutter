@@ -8,6 +8,7 @@ import 'package:logging/logging.dart';
 
 import 'package:gk_ble_device_flutter/ble_device_ext.dart';
 import 'package:gk_ble_device_flutter/ble_device_cubit.dart';
+import 'package:gk_ble_device_flutter/ble_mock_device.dart';
 
 void main() {
   FlutterBluePlus.setLogLevel(LogLevel.info);
@@ -59,6 +60,10 @@ class _DropperDemoAppState extends State<DropperDemoApp> {
   @override
   void initState() {
     super.initState();
+    final cubit = context.read<BleDeviceCubit>();
+    cubit.mockDevices.add(BleMockDevice("GKDR-MOCK0001"));
+    cubit.mockDevices.add(BleMockDevice("GKDR-MOCK0002"));
+    cubit.mockDevices.add(BleMockDevice("GKDR-MOCK0003"));
   }
 
   @override
