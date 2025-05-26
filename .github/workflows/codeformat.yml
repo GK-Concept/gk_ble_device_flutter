@@ -17,6 +17,8 @@ jobs:
 
       - name: Set up Dart
         uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.6
 
       - name: Check code format
         run: dart format -o none --set-exit-if-changed .
