@@ -1,6 +1,6 @@
 name: gk_ble_device_flutter
 description: "Bloc-based Flutter library to communicate with GK Concept devices via Bluetooth"
-version: 1.0.0
+version: 1.1.0
 homepage: https://www.github.com/GK-Concept/gk_ble_device_flutter
 
 environment:
