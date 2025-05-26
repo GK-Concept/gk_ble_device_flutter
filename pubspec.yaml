@@ -10,7 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_blue_plus: ^1.33.0
+  flutter_blue_plus: ^1.35.5
+  # platform interface is only needed for the mock device
+  flutter_blue_plus_platform_interface: ^4.0.2
   flutter_bloc: ^8.1.5
   logging: ^1.2.0
   permission_handler: ^11.3.0

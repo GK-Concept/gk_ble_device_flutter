@@ -34,6 +34,8 @@ class BleDeviceCubit extends Cubit<BleDeviceState> {
 
   StreamSubscription<BluetoothConnectionState>? _conStateSubs;
 
+  final mockDevices = <BluetoothDevice>[];
+
   BleDeviceCubit()
       : super(const BleDeviceState(status: BluetoothAdapterState.off)) {
     _adapterStateSubs = FlutterBluePlus.adapterState.listen((state) {
@@ -102,6 +104,7 @@ class BleDeviceCubit extends Cubit<BleDeviceState> {
           },
         ).toList();
         /* sort the devices by name */
+        devices.addAll(mockDevices);
         devices.sort((d1, d2) => d1.platformName.compareTo(d2.platformName));
         return devices;
       },
