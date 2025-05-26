@@ -85,3 +85,18 @@ Also, add this to `DebugProfile.entitlements` and `Release.entitlements`:
 <key>com.apple.security.device.bluetooth</key>
 <true/>
 ```
+
+## Debugging
+
+The BLE backend of this library provides control over the log level. This is
+demonstrated in `main.dart` of the example application.
+
+```dart
+FlutterBluePlus.setLogLevel(LogLevel.info);
+```
+
+If you need more detailed logs, you can change this to `LogLevel.debug`. The
+following screenshot illustrates what the `debug`-level logs look like when
+connecting to a Dropper device:
+
+![](img/debug-screenshot.png)
